@@ -1,0 +1,616 @@
+﻿body {
+    background: #fbf3f3;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    font-family: Microsoft JhengHei !important;
+}
+
+ul {
+    list-style: none;
+    padding: 0px
+}
+
+.note-editable > ul {
+    list-style: initial !important;
+    padding: 0px 40px !important
+}
+
+.AnswerHook {
+    background: url(Resource/AnswerHook.png) no-repeat 50% 50% !important;
+}
+
+.ErrorMsg {
+    position: absolute;
+    display: none;
+    z-index: 100;
+}
+
+.CorrectMsg {
+    position: absolute;
+    display: none;
+    z-index: 100;
+}
+
+#Jumptable,
+#Jumptab {
+    overflow: auto;
+    width: 100%;
+    height: 200px;
+    background-color: rgba(54, 48, 48, 0.729412);
+    top: 65%;
+    position: absolute;
+    z-index: 1001;
+}
+
+#JumptableAll {
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1001;
+}
+
+.pptType {
+    /* height: 90%;
+    overflow: auto; */
+    list-style: none;
+}
+
+.pptType li {
+    float: left;
+    margin: 40px 10px 30px 30px;
+}
+
+.pptType li span {
+    top: 0;
+    left: 0;
+    font-size: 1.5em;
+    color: white;
+    display: block;
+}
+
+.JumpIcon {
+    position: fixed;
+    width: 30px;
+    bottom: 3%;
+    cursor: pointer;
+    margin: 0;
+    right: 1%;
+    list-style: none;
+    z-index: 1002
+}
+
+.JumpIcon img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    float: left;
+}
+
+#closeBtn {
+    cursor: pointer;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    /* z-index: 1; */
+}
+
+#narrowBtn {
+    cursor: pointer;
+    top: 0px;
+    position: absolute;
+}
+
+input[type='range'] {
+    vertical-align: middle;
+    padding: 0px 0px 0px 0px;
+    margin-left: 10px;
+}
+
+.option {
+    width: 60px;
+    float: left;
+    height: 40px;
+    border: 2px solid #cccccc;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.colorStateBar {
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    height: 15px;
+}
+
+.colorStateBar div {
+    margin: 3px 3px 3px 3px; 
+    width: 475px;
+    height: 5px;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.bgColorStateBar {
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+
+.bgColorStateBar input {
+    width: 90%;
+}
+
+#norColor {
+    float: left;
+    width: 50%;
+    position: relative;
+}
+
+#circleColor {
+    float: left;
+    width: 50%;
+    position: relative;
+}
+
+.changeSlider {
+    background-color: #b9bfc6;
+    width: 80%;
+    z-index: 1001;
+    margin-bottom: 20px;
+}
+
+.bootstrapSlider {
+    width: 80%;
+    z-index: 1001;
+    margin-bottom: 20px;
+}
+
+#picker,
+#bgpicker {
+    margin-left: 25px;
+}
+
+#TextColor,
+#bgTextColor {
+    width: 145px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+#divbtn {
+    float: left;
+    margin-left: 70px;
+    margin-top: 0px;
+}
+
+.pikerbtn {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+}
+
+.active {
+    border: 2px solid black;
+}
+
+img.output {
+    border: 1px solid green;
+}
+
+#cSketchPad {
+    cursor: arrow;
+}
+
+.sharp_btn {
+    cursor: pointer;
+    border: 1px solid;
+}
+
+#dialog {
+    background: blueviolet;
+    font: 10pt/normal tahoma;
+    padding: 0px;
+    border: 1px solid gray;
+    border-image: none;
+    left: 200px;
+    top: 100px;
+    width: 400px;
+    height: 400px;
+    margin-top: 0px;
+    margin-left: 0px;
+    display: none;
+    position: absolute;
+    z-index: 100;
+    font-size-adjust: none;
+    font-stretch: normal;
+}
+
+.centent_Text {
+    background-color: white;
+    overflow: auto;
+    width: 95%;
+    margin-top: 3px;
+    border-radius: 5px;
+    -ms-overflow-style: none;
+}
+
+.centent_Text::-webkit-scrollbar {
+    display: none;
+}
+
+#BookAlert {
+    position: absolute;
+    text-align: center;
+    top: 47%;
+    left: 50%;
+    background-color: gray;
+    border-radius: 10px;
+    display: none;
+    color: white;
+    font-size: 40px;
+    z-index: 1000;
+}
+
+.fullvideo {
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 1001;
+}
+
+.cubeDiv canvas#Top {
+    transform: rotateX(-90deg);
+}
+
+.cubeDiv canvas#Right {
+    transform: rotateY(-90deg);
+}
+
+.cubeDiv canvas#Bottom {
+    transform: rotateX(90deg);
+}
+
+.cubeDiv canvas#Left {
+    transform: rotateY(90deg);
+}
+
+#QuizTime,
+#QuizScroe {
+    font-size: 20px;
+}
+
+#endQuiz {
+    display: none;
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+div.windows_list_box {
+    display: none;
+    position: absolute;
+    top: 50px;
+    width: 300px;
+    left: 100px;
+    z-index: 1000;
+    background-color: #F1C40F;
+    -webkit-transform-origin: 0px 0px;
+    -moz-transform-origin: 0px 0px;
+    -o-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+}
+
+div.windows_list_box h2 {
+    color: black;
+    margin-left: 30%;
+}
+
+
+/*--內容區域--*/
+
+div.windows_list_box .centent_box {
+    position: absolute;
+    top: 50px;
+    left: 5%;
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+}
+
+div.windows_list_box .centent_box ul {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    max-height: 293px;
+    border: rgba(0, 0, 0, 0.7) solid 10px;
+}
+
+div.windows_list_box .centent_box li {
+    margin: 5px 0;
+    padding: 10px;
+    display: block;
+    overflow: hidden;
+    border-radius: 5px;
+    width: 85%;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+div.windows_list_box .centent_box li:hover {
+    margin: 5px 0;
+    padding: 10px;
+    display: block;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #F39C12;
+    width: 85%;
+    text-decoration: none;
+    border: #F39C12 solid 2px;
+    color: #000;
+    font-size: 16px;
+}
+
+div.windows_list_box .close_box,
+.narrow {
+    width: 30px;
+    height: 45px;
+    background-size: 100% 100%;
+    background-image: url(../css/Images/Narrow.png);
+    background-repeat: no-repeat;
+}
+
+
+.allTimer {
+    -webkit-transform-origin: 0px 0px;
+    -moz-transform-origin: 0px 0px;
+    -o-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+}
+
+.timerbtndiv {
+    width: 270px;
+    height: 50px;
+    background-size: 100% 100%;
+    background-image: url(../ToolBar/timerBG.png);
+    background-repeat: no-repeat;
+}
+
+.timer,
+.timer-done,
+.timer-loop {
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+
+    padding: 10px;
+    width: 125px;
+    height: 30px;
+    background-size: 100% 100%;
+    background-image: url(../ToolBar/timerMiddleBackground.png);
+    background-repeat: no-repeat;
+
+}
+
+.hours {
+    float: left;
+}
+
+.minutes {
+    float: left;
+}
+
+.seconds {
+    float: left;
+}
+
+.clearDiv {
+    clear: both;
+}
+
+.is-complete {
+    color: red;
+}
+
+.divOffset {
+    background: #fbf3f3;
+    position: absolute;
+    z-index: 97;
+}
+
+#openButton {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    z-index: 1;
+    cursor: pointer;
+    width: 10%;
+}
+
+#backButton {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    z-index: 1;
+    cursor: pointer;
+    width: 5em;
+}
+
+.confirm {
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.confirm .conts {
+    width: 400px;
+    height: 100px;
+    background-color: #e8e7e1;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px #666666;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.confirm .conts p {
+    padding-left: 1em;
+}
+
+.confirm .conts span {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirm .conts span .confirm_btn {
+    margin: 0 10px;
+    padding: 5px 15px;
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    background: #000000;
+    color: #fff;
+    box-shadow: 1px 1px 1px #666666;
+}
+
+.confirm .conts span .cancel {
+    background: #ffffff;
+    color: #777777;
+}
+
+video::-internal-media-controls-download-button {
+    display: none;
+}
+
+video::-webkit-media-controls-enclosure {
+    overflow: hidden;
+}
+
+video::-webkit-media-controls-panel {
+    width: calc(100% + 30px);
+}
+
+.blockView {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    opacity: 0.5;
+    z-index: 10000;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+textarea.noFocus:focus {
+    outline: 0;
+}
+
+.blackboard-invert {
+    -webkit-filter: invert(100%);
+    -ms-filter: invert(100%);
+}
+
+.operating-layout,
+.operating-layout-pc {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.operating-layout img.operating-img,
+.operating-layout-pc img.operating-img {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+}
+
+.loadingText {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#CanvasLeft,
+#CanvasRight,
+#CanvasGallery,
+.canvasObj,
+.canvasPad,
+.CanvasBox,
+.NoteBox,
+.inputFile,
+.link_btn {
+    z-index: 99;
+}
+
+.textPopup {
+    z-index: 100;
+}

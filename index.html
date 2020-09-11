@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>eBook</title>
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="js/summernote/summernote-bs4.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/toolbar.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/farbtastic.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+
+    <script>
+        var CustomizeName = "General";
+        var CustomizeBuildDate = "2020-05-18";
+        var CustomizeVersion = "v1.0.1";
+    </script>
+</head>
+
+<body>
+    <div class="loadingText">
+        <img src="ToolBar/loading.gif">
+    </div>
+    <div id="example" style="display: none;">
+        <img id="backButton" src="ToolBar/Home-icon.png" onclick="cardboardInit()">
+    </div>
+    <div id="HamastarWrapper">
+        <div id="WebBox">
+            <canvas id="CanvasLeft" class="canvas" width="1024px" height="768px"></canvas>
+            <canvas id="CanvasRight" class="canvas" width="1024px" height="768px"></canvas>
+            <canvas id="Buffer" class="canvas" width="1024px" height="768px" style="display: none"></canvas>
+        </div>
+        <div id="Gallery">
+            <canvas id="CanvasGallery" class="canvas" width="1024px" height="768px"></canvas>
+        </div>
+    </div>
+
+    <div id="DivErrorMsg" class="ErrorMsg">
+        <canvas id="ErrorMsg" width="1024px" height="768px"></canvas>
+    </div>
+
+    <div id="DivCorrectMsg" class="CorrectMsg">
+        <canvas id="CorrectMsg" width="1024px" height="768px"></canvas>
+    </div>
+
+    <div id="ToolBar" style="display: none;">
+        <div id="ToolBarIcon" class="ToolBarIcon ToolBarAnimation" show="false">
+            <img id="ToolBarSidesImg" src="ToolBar/ToolBarLandscapeL.png" onclick="ToolBarShow()" />
+        </div>
+        <div id="ToolBarMenu" class="ToolBarMenu ToolBarAnimation">
+            <div id="eBookVersion" class="eBookVersion">
+				<span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="ToolBarUl">
+            </ul>
+        </div>
+    </div>
+
+    <div id="AssistToolBar" style="display: none;">
+        <div id="AssistToolBarIcon" class="AssistToolBarIcon" show="false">
+            <img id="AssistToolBarSidesImg" src="ToolBar/ToolBarLandscapeR.png" onclick="AssistToolBarShow()" />
+        </div>
+        <div id="AssistToolBarMenu" class="AssistToolBarMenu">
+            <ul id="AssistToolBarUl">
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <ul id="JumpIcon" class='JumpIcon' style="display:none;">
+            <li>
+                <img id="btnAll" src="css/Images/allpagebefore.png" onclick="JumpChange(this)">
+            </li>
+            <li>
+                <img id="btnBook" src="css/Images/bookpagebefore.png" onclick="JumpChange(this)">
+            </li>
+            <li>
+                <img id="btnTab" src="css/Images/tabpageBefore.png" onclick="JumpChange(this)">
+            </li>
+            <li>
+                <img id="btnChapter" src="css/Images/chapterpagebefore.png" onclick="JumpChange(this)">
+            </li>
+        </ul>
+    </div>
+
+    <div id="Jumptable" style="display:none;"></div>
+    <div id="JumptableAll" style="display:none;"></div>
+    <div id="Jumptab" style="display: none;"></div>
+
+    <!-- 章節模式 -->
+    <div id="JumpChapter" style="display:none;">
+        <div class="Chapter_header"></div>
+        <div class="Chapter_menu">
+            <ul id="Chapter_ul"></ul>
+        </div>
+    </div>
+
+    <!-- 調色盤-->
+    <div class="colorPicker-layout">
+        <div class="colorPicker-block">
+            <img class="closeColor_btn" src="css/Images/Close.png" onclick="closeColorPicker()">
+            <h1 class="colorPicker_title" data-lang="Palette">畫筆調色盤</h1>
+            <div class="colorPicker-cont">
+                <div class="colorPicker-bgColor">
+                    <div class="colorStateBar">
+                        <div style="opacity:1;height:3px;"></div>
+                    </div>
+                    <div class="slider-block">
+                        <p style="margin-bottom:20px" data-lang="BruSize">畫筆尺寸</p>
+                        <input type="range" id="chance_slider" class="custom-range bootstrapSlider" step="1" min="4"
+                            max="24" value="4">
+                    </div>
+                    <div class="slider-block">
+                        <p style="margin-bottom:20px" data-lang="Trans">透明度</p>
+                        <input type="range" id="chance_sliderop" class="custom-range bootstrapSlider" step="1" min="0"
+                            max="10" value="10">
+                    </div>
+                    <div id="DefaultColor" style="display: none;">
+                        <div class="slider-block">
+                            <p style="margin-bottom:20px" data-lang="Comm">常用顏色</p>
+                            <ul>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(255,0,0)"></li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(255,165,0)">
+                                </li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(255,255,0)">
+                                </li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(0,255,0)"></li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(0,0,255)"></li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(128,0,128)">
+                                </li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(0,0,0)"></li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(128,128,128)">
+                                </li>
+                                <li class="option" onclick="penchane(this)" style="background-color:rgb(255,255,255)">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="slider-block">
+                            <p style="margin-bottom:20px" data-lang="Color">選擇顏色</p>
+                            <div id="picker"></div>
+                        </div>
+                    </div>
+                    <div id="Sharp-block" class="slider-block">
+                        <p style="margin-bottom:20px" data-lang="Shape">繪圖形狀</p>
+                        <img id="arbitrarily" style="margin-left: 10px; background-color: #ffff00;" class="sharp_btn"
+                            src="css/Images/line.png" onclick="changeSharp('arbitrarily')" />
+                        <img id="line" class="sharp_btn" src="css/Images/beeline.png" onclick="changeSharp('line')" />
+                        <img id="circle" class="sharp_btn" src="css/Images/circle.png"
+                            onclick="changeSharp('circle')" />
+                        <img id="rect" class="sharp_btn" src="css/Images/rectangle.png" onclick="changeSharp('rect')" />
+                    </div>
+                    <div id="Color-block" class="slider-block">
+                        <p style="margin-bottom:20px;" data-lang="RGB">RGB</p>
+                        <input type="text" id="TextColor" value="#FE0100" onkeyup="Setcolor(this)" minlength="1"
+                            maxlength="7" />
+                    </div>
+                    <div class="pickerBtn-block">
+                        <button type="button" class="btn btn-dark" onclick="starDraw()" data-lang="Confirm">確定</button>
+                        <button type="button" class="btn btn-dark" onclick="closeColorPicker()"
+                            data-lang="Cancel">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全文檢索 start-->
+    <div class="searchText-layout">
+        <div class="searchText-block">
+            <img class="searchText_btn" src="css/Images/Close.png" onclick="closeSearch()">
+            <h1 class="searchText_title">全文檢索</h1>
+            <div class="searchText-cont">
+                <div class="searchText-bgColor">
+                    <div class="input-group input-group-sm" style="margin: 10px 10px 10px 10px; width: 530px;">
+                        <input id="TextKeyword" type="text" class="form-control" placeholder="請輸入關鍵字"
+                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button id="textSearchBtn" class="btn btn-outline-secondary btn-sm" type="button"
+                                id="button-addon2" onclick="searchTextList()">搜尋</button>
+                        </div>
+                    </div>
+                    <div class="centent_Text" style="margin: 10px 10px 10px 10px; width: 530px; height: 380px;">
+                        <ul id="searchText-ul" class="list-group">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 全文檢索 End-->
+
+    <!-- Alert -->
+    <div id="BookAlert">
+        <label></label>
+    </div>
+
+    <!-- Confirm -->
+    <div class="confirm">
+        <div class="conts">
+            <p class="confirm_text"></p>
+            <span class="confirm_btns">
+            </span>
+        </div>
+    </div>
+
+    <!-- 測驗題組 -->
+    <div id="endQuiz">
+        <h1 id="QuizTime" style="padding: 30px">Totle：</h1>
+        <h1 id="QuizScroe">Totle：</h1>
+        <input type="button" id="btnConfirm" style="margin: 30px" value="確定" />
+    </div>
+
+    <!-- errorList start-->
+    <div class="windows_list_box">
+        <div class="errorbtndiv">
+            <p style="display: inline;float: left; padding: 10px; margin-top: 8px;margin-left: 5px;color:black">答錯題目列表
+            </p>
+            <div class="close_box" style="position: absolute;margin-left: 86%; margin-top: 2px;z-index:50"
+                ontouchstart="errornarrow()" onclick="errornarrow()">
+                <a href="#" style="position: absolute; padding: 1px;"></a>
+            </div>
+            <div class="centent_box" style="overflow: auto;" ontouchstart="stopDrag();" ontouchend="startDrag();">
+                <ul id="errUL"></ul>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="errorimgDiv" style="display: none;" onclick="errorzoom()" ontouchend="errorzoom()">
+            <img src="css/Images/errorlist.png" style="width:50px;height:50px">
+        </div>
+    </div>
+
+    <!-- 計時器 start-->
+    <div class="allTimer" style="display: none;position: absolute;float:left;top:50px ;left:100px;">
+        <div class="timerbtndiv">
+            <p style=" display: inline;float: left; padding: 10px; margin-top: 8px;margin-left: 5px;color: white">剩餘時間
+            </p>
+            <div class="narrow" style="position: absolute;  margin-left: 86%;    margin-top: 2px;z-index:50"
+                ontouchstart="narrow()" onclick="narrow()">
+                <a href="#" style="position: absolute; padding: 1px;"></a>
+            </div>
+        </div>
+        <div class="timerimgDiv" style="display: none;" onclick="zoom()" ontouchend="zoom()">
+            <img src="ToolBar/timer.png" style="width:50px;height:50px">
+        </div>
+    </div>
+
+    <!-- 專用上下頁Icon -->
+    <div class="pageIcons_div" style="display: none;">
+        <img id="pageIcon_l" class="pageIcon_l" src="css/Images/left_page.png" onclick="pageIconClick(true)">
+        <img id="pageIcon_r" class="pageIcon_r" src="css/Images/right_page.png" onclick="pageIconClick(false)">
+    </div>
+
+    <div class="blockView">
+        <div class="loader"></div>
+    </div>
+
+    <script type="text/javascript" src="js/Jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/Jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/Jquery/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/Jquery/jquery.transit.js"></script>
+    <script type="text/javascript" src="js/Jquery/jquery.simple.timer.js"></script>
+    <script type="text/javascript" src="js/Jquery/jquery.ui.touch-punch.min.js"></script>
+
+    <script type="text/javascript" src="js/3rdParty/base64.js"></script>
+    <script type="text/javascript" src="js/3rdParty/detect.min.js"></script>
+    <script type="text/javascript" src="js/3rdParty/farbtastic.js"></script>
+    <script type="text/javascript" src="js/3rdParty/hammer.js"></script>
+    <script type="text/javascript" src="js/3rdParty/moment.min.js"></script>
+    <script type="text/javascript" src="js/3rdParty/polifill.js"></script>
+    <script type="text/javascript" src="js/3rdParty/xml2json.js"></script>
+
+    <script type="text/javascript" src="js/bootstrap/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/summernote/summernote-bs4-es5.js"></script>
+    <script type="text/javascript" src="js/summernote/lang/summernote-zh-TW.min.js"></script>
+
+    <script type="text/javascript" src="js/EaselJS/easeljs.min.js"></script>
+    <script type="text/javascript" src="js/EaselJS/tweenjs.min.js"></script>
+    <script type="text/javascript" src="js/EaselJS/preloadjs.min.js"></script>
+
+    <script type="text/javascript" src="indexXmlStr.js"></script>
+    <!-- <script type="text/javascript" src="Note/userCreateObjectDictionaryXmlStr.js"></script> -->
+
+    <script type="text/javascript" src="js/XmlToJson.js"></script>
+    <script type="text/javascript" src="js/JsonToHamaList.js"></script>
+    <script type="text/javascript" src="js/GalleryEvent.js"></script>
+    <script type="text/javascript" src="js/MaskingLayer.js"></script>
+    <script type="text/javascript" src="js/ErasingPicture.js"></script>
+    <script type="text/javascript" src="js/AdditionalFile.js"></script>
+    <script type="text/javascript" src="js/HyperLink.js"></script>
+    <script type="text/javascript" src="js/RotationImage.js"></script>
+    <script type="text/javascript" src="js/SlideShow.js"></script>
+    <script type="text/javascript" src="js/ScrollObject.js"></script>
+    <script type="text/javascript" src="js/VideoLayer.js"></script>
+    <script type="text/javascript" src="js/DrawCanvas.js"></script>
+    <script type="text/javascript" src="js/Animate.js"></script>
+    <script type="text/javascript" src="js/HamaReceive.js"></script>
+    <script type="text/javascript" src="js/Zoom.js"></script>
+    <script type="text/javascript" src="js/Save.js"></script>
+    <script type="text/javascript" src="js/insertImage.js"></script>
+
+    <script type="text/javascript" src="js/Introduction/Introduction.js"></script>
+    <script type="text/javascript" src="js/Introduction/IntroductionEvent.js"></script>
+
+    <script type="text/javascript" src="js/Panorama/jCube.js"></script>
+    <script type="text/javascript" src="js/Panorama/jRoom.js"></script>
+    <script type="text/javascript" src="js/Panorama/jTouch.js"></script>
+    <script type="text/javascript" src="js/Panorama/Panorama.js"></script>
+
+    <script type="text/javascript" src="js/Quiz/QuizModule.js"></script>
+    <script type="text/javascript" src="js/Quiz/TouchModule.js"></script>
+    <script type="text/javascript" src="js/Quiz/Connector.js"></script>
+    <script type="text/javascript" src="js/Quiz/ImgDraggable.js"></script>
+    <script type="text/javascript" src="js/Quiz/InputModule.js"></script>
+    <script type="text/javascript" src="js/Quiz/ExamModule.js"></script>
+
+    <script type="text/javascript" src="js/Toolbar/HamaSetting.js"></script>
+    <script type="text/javascript" src="js/Toolbar/ToolBarConfig.js"></script>
+    <script type="text/javascript" src="js/Toolbar/ToolBarSet.js"></script>
+
+    <script type="text/javascript" src="js/Feature/blackboard.js"></script>
+    <script type="text/javascript" src="js/Feature/JumpPage.js"></script>
+    <script type="text/javascript" src="js/Feature/popupMsg.js"></script>
+    <script type="text/javascript" src="js/Feature/randNum.js"></script>
+    <script type="text/javascript" src="js/Feature/Timer.js"></script>
+    <script type="text/javascript" src="js/Feature/ToolEraser.js"></script>
+    <script type="text/javascript" src="js/Feature/ToolPen.js"></script>
+    <script type="text/javascript" src="js/Feature/txtCanvas.js"></script>
+    <script type="text/javascript" src="js/Feature/txtComment.js"></script>
+    <script type="text/javascript" src="js/Feature/txtNote.js"></script>
+    <script type="text/javascript" src="js/Feature/txtPopup.js"></script>
+    <script type="text/javascript" src="js/Feature/txtShare.js"></script>
+    <script type="text/javascript" src="js/Feature/whiteBoard.js"></script>
+
+    <script type="text/javascript" src="js/threejs/three.js"></script>
+    <script type="text/javascript" src="js/threejs/StereoEffect.js"></script>
+    <script type="text/javascript" src="js/threejs/DeviceOrientationControls.js"></script>
+    <script type="text/javascript" src="js/threejs/OrbitControls.js"></script>
+    <script type="text/javascript" src="js/threejs/CSS3DRenderer.js"></script>
+    <script type="text/javascript" src="js/threejs/Cardboard.js"></script>
+
+    <script type="text/javascript" src="js/Localization/Localization.js"></script>
+    <script type="text/javascript" src="js/Customize/customize.js"></script>
+
+    <script type="text/javascript" src="js/Main.js"></script>
+
+    <script type="text/javascript" src="TextlocationList.js"></script>
+</body>
+
+</html>
